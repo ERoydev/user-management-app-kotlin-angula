@@ -35,4 +35,18 @@ class UserController(private val userRepository: UserRepository) {
         println("<===== UserController is initialized successfully! =====>")
     }
 
+    // READ
+    @GetMapping("")
+    fun getAllUsers(): ResponseEntity<Any> {
+        return try {
+            val sort = Sort.by("lastName", "DateOfBirth") // Since the assign says sorting is included for `LastName` and `Birth Date`
+            val users = userRepository.findAll(sort)
+            logger.info("Users fetched successfully!")
+            ResponseEntity.ok(users)
+        } catch (e: Exception) {
+            logger.error("Error fetching all the users", e)
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching users")
+        }
+    }
+
 }
