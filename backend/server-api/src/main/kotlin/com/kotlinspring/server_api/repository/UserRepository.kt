@@ -14,6 +14,9 @@ This UserRepository interface will interact with the User Entity
 @Repository // JPA handles all basic Crud opperations
 interface UserRepository: JpaRepository<User, Long> {
 
+    // Raw Query
+    @Query("SELECT u FROM User u WHERE u.firstName LIKE %:searchTerm% OR u.lastName LIKE %:searchTerm% OR u.email LIKE %:searchTerm% OR u.phoneNumber LIKE %:searchTerm%")
+    fun searchBySearchTerm(searchTerm: String): List<User>
 }
 
 // I Use Repositories to interact with the database

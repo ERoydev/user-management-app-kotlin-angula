@@ -111,4 +111,11 @@ class UserController(private val userRepository: UserRepository) {
         return ResponseEntity.ok(user)
     }
 
+    // Search EndPoint
+    // I have Configured it to Search for ([firstName, lastName, email, phoneNumber])
+    @GetMapping("/search")
+    fun searchUser(@RequestParam searchTerm: String): List<User> {
+        return userRepository.searchBySearchTerm(searchTerm)
+    }
+
 }
