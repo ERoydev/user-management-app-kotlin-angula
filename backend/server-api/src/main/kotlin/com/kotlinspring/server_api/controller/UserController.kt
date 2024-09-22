@@ -35,6 +35,19 @@ class UserController(private val userRepository: UserRepository) {
         println("<===== UserController is initialized successfully! =====>")
     }
 
+    // CREATE
+    @PostMapping("")
+    fun createUser(@RequestBody user: User): ResponseEntity<Any> { // I specify (types and what fun return) like i do in TypeScript
+        return try {
+            val savedUser = userRepository.save(user)
+            logger.info("Successfully created user with email: ${savedUser.email}!")
+            ResponseEntity.ok(savedUser) // I return 200 OK with saved user
+        } catch (e: Exception) {
+            logger.error("Error creating user", e)
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating user") // HTTP 500
+        }
+    }
+
     // READ
     @GetMapping("")
     fun getAllUsers(): ResponseEntity<Any> {
@@ -47,6 +60,55 @@ class UserController(private val userRepository: UserRepository) {
             logger.error("Error fetching all the users", e)
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching users")
         }
+    }
+
+    @GetMapping("/{id}")
+    fun getUser(@PathVariable(value = "id") id: Long): ResponseEntity<Any> {
+        return try {
+            val user = userRepository.findById(id)
+            if (user.isPresent) {
+                logger.info("Successfully fetched user!")
+                ResponseEntity.ok(user.get()) // 200
+            } else {
+                logger.error("User with this id does not exists!")
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with this id does not exists!")
+            }
+        } catch (e: Exception) {
+            logger.error("Error fetching user with id $id", e)
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching user!")
+        }
+    }
+
+    // UPDATE
+    @PutMapping("/{id}")
+    fun updateUser(@PathVariable(value = "id") id: Long, @RequestBody newUserData: User): ResponseEntity<Any> {
+        return try {
+            val existingUser: User =
+                userRepository.findById(id).orElseThrow { RuntimeException("User with this id doesn't exists.") }
+
+            val updatedUser = existingUser.copy(
+                firstName = newUserData.firstName,
+                lastName = newUserData.lastName,
+                dateOfBirth = newUserData.dateOfBirth,
+                phoneNumber = newUserData.phoneNumber,
+                email = newUserData.email
+            )
+
+            val savedUser = userRepository.save(updatedUser)
+            logger.info("Updating user is successfully!")
+            ResponseEntity.ok(savedUser)
+        } catch (e: Exception) {
+            logger.error("Updating user failed!")
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user!")
+        }
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    fun deleteUser(@PathVariable(value = "id") id: Long): ResponseEntity<Any> {
+        val user: User = userRepository.findById(id).orElseThrow({RuntimeException("User with this id doesn't exists.")})
+        userRepository.delete(user)
+        return ResponseEntity.ok(user)
     }
 
 }
