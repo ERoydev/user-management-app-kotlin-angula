@@ -1,0 +1,95 @@
+
+
+<app-banner *ngIf="errorMessage" [errorMessage]="errorMessage" (close)="closeErrorBanner()"></app-banner>
+<div class="max-container mb-44 px-5">
+
+    <app-dialog *ngIf="isDialogOpen" (close)="closeDialog()" (submit)="submitDialog()" />
+    
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-slate-800">
+        
+    
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3 max-md:text-[0.5rem]">
+                        First Name
+                    </th>
+
+                    <th scope="col" class="px-6 py-3 max-md:text-[0.5rem]">
+                        Last Name
+                    </th>
+
+                    <th scope="col" class="px-6 py-3 max-md:text-[0.5rem]">
+                        Email
+                    </th>
+
+                    <th scope="col" class="px-6 py-3 max-md:text-[0.5rem]">
+                        Phone Number
+                    </th>
+
+                    <th scope="col" class="px-6 py-3 max-md:text-[0.5rem]">
+                        Birth_Date
+                    </th>
+
+                    <th scope="col" class="px-6 py-3 max-md:text-[0.5rem]">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let user of this.paginatedUsers; index as i">
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    
+                    <!-- First Name -->
+                    <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                        <img class="w-10 h-10 rounded-full border border-slate-300/[.08] bg-white/[50%]" src="../../../../assets/svg/profile-img.svg" alt="Jese image">
+                        <div class="ps-3">
+                            <div class="text-base font-semibold max-md:text-[0.6rem]">{{user.firstName}}</div>
+                        </div>  
+                    </th>
+                    
+                    <!-- Last Name -->
+                    <td class="px-6 py-4 max-md:text-[0.6rem]">
+                        {{user.lastName}}
+                    </td>
+                    
+                    <!-- Email -->
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="max-md:text-[0.6rem]">{{user.email}}</div>
+                        </div>
+                    </td>
+
+                    <!-- Phone Number -->
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="max-md:text-[0.6rem]">{{user.phoneNumber}}</div>
+                        </div>
+                    </td>
+
+                    <!-- Date of Birth -->
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="max-md:text-[0.6rem]">{{user.dateOfBirth}}</div>
+                        </div>
+                    </td>
+
+                    <td class="px-6 py-4">
+                        <!-- Modal toggle -->
+                        <div class="flex gap-5">
+                            <a (click)="navTo('/edit', user.id)" type="button" class="btn font-bold text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <a (click)="openDialog($event, user)" type="button" class="btn font-bold text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
+                        </div>
+                    </td>
+                </tr>       
+            </tbody>
+        </table>
+
+        <div class="flex justify-center py-2">
+            <app-pagination
+                [previousButtonHandler]="previousPage"
+                [nextButtonHandler]="nextPage"
+            ></app-pagination>
+        </div>
+    </div>
+
+</div>

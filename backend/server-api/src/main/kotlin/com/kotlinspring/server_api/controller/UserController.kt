@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 // My logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Sort
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -25,6 +26,7 @@ import java.util.*
 // @ResponseEntity => Gives me full control of what is returned to the client including status, code, headers, body
 // Instead of just returning the body (list of users, a single user or something else)
 
+@CrossOrigin(origins = ["http://localhost:4200"])  // Apply CORS for this controller
 @RestController
 @RequestMapping("/users")
 class UserController(private val userRepository: UserRepository) {

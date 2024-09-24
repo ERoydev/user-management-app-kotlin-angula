@@ -1,0 +1,13 @@
+<div class="dialog-overlay" (click)="closeDialog()"></div>
+<div class="dialog-container">
+  <div class="dialog-header flex text-center">
+    <h2>Are you sure you want to procceed with this action?</h2>
+  </div>
+  <div class="dialog-content">
+    <ng-content></ng-content>
+  </div>
+  <div class="dialog-actions flex gap-8 justify-center pt-8">
+    <button (click)="closeDialog()" class="border py-2 px-2 rounded-lg bg-red-600 hover:cursor-pointer hover:bg-red-700">Close</button>
+    <button (click)="submitDialog()" class="border py-2 px-2 rounded-lg bg-blue-600 hover:cursor-pointer hover:bg-blue-700">Submit</button>
+  </div>
+</div>

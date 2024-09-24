@@ -16,6 +16,7 @@ This UserRepository interface will interact with the User Entity
 interface UserRepository: JpaRepository<User, Long> {
 
     // Raw Query
+    // Note: I can use Postgres Function to move this logic inside the database to improve performance.
     @Query("SELECT u FROM User u WHERE u.firstName LIKE %:searchTerm% OR u.lastName LIKE %:searchTerm% OR u.email LIKE %:searchTerm% OR u.phoneNumber LIKE %:searchTerm%")
     fun searchBySearchTerm(@Param("searchTerm") searchTerm: String): List<User>
 }
