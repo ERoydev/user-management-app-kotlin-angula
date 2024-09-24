@@ -32,14 +32,14 @@ export class UserService {
   };
 
   deleteUser(userId: number) {
-    const response = this.http.delete<User>(`${this.baseUrl}/${userId}/`)
+    const response = this.http.delete<User>(`${this.baseUrl}/${userId}`)
     return response;
   }
 
   editUser(userId: number, updatedUser: User) {
     const userData = this.dataPreparation(updatedUser);
 
-    const response = this.http.put<User>(`${this.baseUrl}/${userId}/`, userData)
+    const response = this.http.put<User>(`${this.baseUrl}/${userId}`, userData)
     return response;
   }
 

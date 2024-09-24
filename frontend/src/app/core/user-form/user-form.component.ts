@@ -50,7 +50,6 @@ export class UserFormComponent implements OnInit {
             this.userData = response;
   
             if (this.userData) {
-              const birth_date = formatToYearMonthDay(this.userData.dateOfBirth)
   
               // I update my userform with the values so i can show them in input fields.
               this.userForm.patchValue({
@@ -112,7 +111,7 @@ export class UserFormComponent implements OnInit {
           },
           error: (error) => {
             console.error('Error occurred during POST request', error);
-            this.errorMessage = 'Failed to create user. Please try again.'; // Set error message
+            this.errorMessage = 'Failed to create user. This email could be already taken.'; // Set error message
           }
         })
       } else {
