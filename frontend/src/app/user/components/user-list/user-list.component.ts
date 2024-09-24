@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/api/user.service';
 import { UserFormGuard } from 'src/app/core/user-form/user-form.guard';
 import { DialogService } from 'src/app/dialog/dialog.service';
 import { User } from 'src/app/types/user';
-import calculateAge from 'src/app/utils/calculateAge';
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -15,6 +16,7 @@ export class UserListComponent implements OnInit {
   isDialogOpen = false;
   currUser = {} as User;
   errorMessage: string = '';
+  searchForm: FormGroup;
 
   paginatedUsers: any[] = [];
   currentPage: number = 1;
@@ -25,10 +27,31 @@ export class UserListComponent implements OnInit {
     private UserFormGuard: UserFormGuard,
     private router: Router,
     private dialogService: DialogService,
-  ) {}
+    private fb: FormBuilder
+  ) {
+    this.searchForm = this.fb.group({
+      searchQuery: ['']
+    })
+  }
 
   closeErrorBanner() {
     this.errorMessage = '';
+  }
+
+  // This is to handle the SearchBar logic where i get the searchParam
+  searchHandler() {
+    const searchTerm = this.searchForm.value['searchQuery']
+    this.UserService.searchCriteria(searchTerm).subscribe({
+      next: (matchedUsers: User[]) => {
+        this.restartToFirstPage(); // I need to restart currentPage to 1 because i will apply search while i am on 5 page for example which is bug
+        this.users = matchedUsers;
+        this.paginateUsers();
+      },
+      error: (error) => {
+        this.errorMessage = "Something went wrong with search functionalities, please contact support!"
+      }
+      
+    })
   }
 
   navTo(path: string, userId: string) {
@@ -109,6 +132,10 @@ export class UserListComponent implements OnInit {
       this.currentPage-= 1;
       this.paginateUsers();
     }
+  }
+
+  restartToFirstPage = () => {
+    this.currentPage = 1;
   }
   // End of Pagination
 }

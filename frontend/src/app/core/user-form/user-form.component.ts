@@ -71,6 +71,7 @@ export class UserFormComponent implements OnInit {
     })
   }
 
+
   // DIALOG
   getDialog() {
     this.isDialogOpen = this.dialogService.isDialogOpen();

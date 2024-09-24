@@ -5,6 +5,7 @@ import { PaginationModule } from '../shared/components/pagination/pagination.mod
 import { RouterModule } from '@angular/router';
 import { DialogModule } from '../dialog/dialog.module';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule,
     DialogModule,
     SharedModule,
+    ReactiveFormsModule
   ],
   exports: [
     UserListComponent,

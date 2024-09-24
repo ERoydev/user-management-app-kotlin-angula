@@ -43,6 +43,11 @@ export class UserService {
     return response;
   }
 
+  searchCriteria(searchTerm: string) {
+    const response = this.http.get<User[]>(`${this.baseUrl}/search?searchTerm=${searchTerm}`)
+    return response;
+  }
+
   // Util function to prepare data for create and edit
   dataPreparation(data: any) {
     return data;
