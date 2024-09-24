@@ -115,7 +115,8 @@ class UserController(private val userRepository: UserRepository) {
     // I have Configured it to Search for ([firstName, lastName, email, phoneNumber])
     @GetMapping("/search")
     fun searchUser(@RequestParam searchTerm: String): List<User> {
-        return userRepository.searchBySearchTerm(searchTerm)
+        // I need to trim my searchTerm to remove all whitespaces
+        val trimmedSearchTerm = searchTerm.trim()
+        return userRepository.searchBySearchTerm(trimmedSearchTerm)
     }
-
 }
