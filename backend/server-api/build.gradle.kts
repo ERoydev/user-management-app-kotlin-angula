@@ -31,6 +31,10 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+	// Swagger 2(Not working on Spring Boot 2.7x and above) so i use SPRINGDOC that is working out of the box without config classes
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+
+
 	// Logging
 	implementation("org.springframework.boot:spring-boot-starter-logging")
 
