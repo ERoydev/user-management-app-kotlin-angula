@@ -1,14 +1,26 @@
+DO
+$$
+BEGIN
+   IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'your_username') THEN
+      CREATE ROLE your_username WITH LOGIN PASSWORD 'your_password';
+   END IF;
+END
+$$;
+
 CREATE DATABASE usermanagement;
 
-CREATE TABLE users (
-	id serial PRIMARY KEY,
-	first_name VARCHAR(100) NOT NULL,
-	last_name VARCHAR(100) NOT NULL,
-	date_of_birth DATE NOT NULL,
-	phone_number VARCHAR(12) NOT NULL,
-	email VARCHAR(100) UNIQUE NOT NULL
-);
+GRANT ALL PRIVILEGES ON DATABASE usermanagement to your_username;
 
+\c usermanagement;
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    phone_number VARCHAR(12) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL
+);
 insert into users (first_name, last_name, date_of_birth, phone_number, email) values ('Niels', 'MacGilpatrick', '1/29/2003', '502-144-1154', 'nmacgilpatrick0@usatoday.com');
 insert into users (first_name, last_name, date_of_birth, phone_number, email) values ('Griffy', 'Matijasevic', '1/14/2015', '128-276-6848', 'gmatijasevic1@gnu.org');
 insert into users (first_name, last_name, date_of_birth, phone_number, email) values ('Jessica', 'De Bischop', '12/22/2001', '444-947-8823', 'jdebischop2@alibaba.com');
