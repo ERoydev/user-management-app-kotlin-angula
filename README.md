@@ -22,11 +22,9 @@
   </li>
   <li>
     <h1><strong>Setup Database</strong><br></h1>
-    Make sure you are in the main folder user-management-app-kotlin-angular and check if you have install psql. It is required to run the following scripts.<br>
-    <h2>First create db</h2>
-    <pre><code>psql -U postgres -d postgres -c "CREATE DATABASE usermanagement;"</code></pre>
-    <h2>Then insert all the mock data</h2>
-    <pre><code>psql -U postgres -d usermanagement -f ./setup_database.sql</code></pre>
+    Make sure you are in the main folder user-management-app-kotlin-angular where setup_database.sql file is located and check if you have install psql. It is required to run the following script.<br>
+    <h2>Run this script</h2>
+    <pre><code>psql -U postgres -d postgres -f ./setup_database.sql"</code></pre>
   </li>
 </ul>
 
@@ -50,14 +48,6 @@
     <pre><code>./gradlew build</code></pre>
   </li>
   
-  <li>
-    Ensure PostgreSQL is running and configure your database connection in the <code>application.properties</code> file:
-    <pre><code>
-spring.datasource.url=jdbc:postgresql://localhost:5432/yourdb
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-    </code></pre>
-  </li>
 </ol>
 
 <h3>Running the API</h3>
