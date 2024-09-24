@@ -6,6 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./hero.component.css']
 })
 export class HeroComponent {
-  buttonText: string = 'Get Started';
+  buttonText: string = 'API Docs - Springdoc';
   buttonFontSize: string = '1.3rem';
+
+
+  buttonClickHandler() {
+    window.location.href = "http://localhost:8080/swagger-ui/index.html#/"
+  }
 }
