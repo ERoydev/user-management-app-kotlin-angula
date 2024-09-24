@@ -23,8 +23,20 @@
   <li>
     <h1><strong>Setup Database</strong><br></h1>
     Make sure you are in the main folder user-management-app-kotlin-angular where setup_database.sql file is located and check if you have install psql. It is required to run the following script.<br>
-    <h2>Run this script</h2>
+    <h2>1. Run this script</h2>
     <pre><code>psql -U postgres -d postgres -f ./setup_database.sql</code></pre>
+    <p>The application.properties is setuped with the user that this script will create, but in case of error go to the next approach!</p>
+    <hr>
+    <h2>2. If There is error with the above approach</h2>
+    You must have already postgres user(owner) and use its credentials. Its super important to adjust in application.properties file with the database credentials
+    <p>Only if the above approach has error run this script</p>
+    <pre><code>psql -U postgres -d postgres -f ./setup_database_on_hand.sql</code></pre>
+    <p>Adjust your username and password in application.properties please!</p>
+    <pre><code>
+spring.datasource.url=jdbc:postgresql://localhost:5432/usermanagement 
+spring.datasource.username=your_username 
+spring.datasource.password=your_password 
+      </code></pre>
   </li>
 </ul>
 
@@ -40,7 +52,7 @@
   
   <li>
     Navigate to the backend directory (if applicable):
-    <pre><code>cd .\backend\server-api\</code></pre>
+    <pre><code>cd .\user-management-app-kotlin-angula\backend\server-api\</code></pre>
   </li>
   
   <li>
