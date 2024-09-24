@@ -40,6 +40,7 @@ class UserController(private val userRepository: UserRepository) {
     // CREATE
     @PostMapping("")
     fun createUser(@RequestBody user: User): ResponseEntity<Any> { // I specify (types and what fun return) like i do in TypeScript
+        println(user)
         return try {
             val savedUser = userRepository.save(user)
             logger.info("Successfully created user with email: ${savedUser.email}!")

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { EmailValidator, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/api/user.service';
 import { DialogService } from 'src/app/dialog/dialog.service';
@@ -33,9 +33,9 @@ export class UserFormComponent implements OnInit {
       // i initialize my Form here with its validators
       firstName: ['', [Validators.required, nameValidator()]],
       lastName: ['', [Validators.required, nameValidator()]],
-      dateOfBirth: ['', [Validators.required], nameValidator()],
-      email: ['', [Validators.required], nameValidator()],
-      phoneNumber: ['', [Validators.required], nameValidator()]
+      dateOfBirth: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required]]
     });
   }
 
@@ -99,6 +99,7 @@ export class UserFormComponent implements OnInit {
   onSubmit() {
     if (this.userForm.valid) {
       const data = this.userForm.value
+      console.log(data)
       
       // I check if form is in edit mode or create
       if (!this.isEditMode) {
