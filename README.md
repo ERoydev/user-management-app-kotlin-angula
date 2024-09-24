@@ -24,7 +24,7 @@
     <h1><strong>Setup Database</strong><br></h1>
     Make sure you are in the main folder user-management-app-kotlin-angular where setup_database.sql file is located and check if you have install psql. It is required to run the following script.<br>
     <h2>Run this script</h2>
-    <pre><code>psql -U postgres -d postgres -f ./setup_database.sql"</code></pre>
+    <pre><code>psql -U postgres -d postgres -f ./setup_database.sql</code></pre>
   </li>
 </ul>
 
