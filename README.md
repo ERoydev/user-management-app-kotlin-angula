@@ -20,6 +20,14 @@
     Once installed, configure your database connection in the project’s 
     <code>application.properties</code> or <code>application.yml</code> file.
   </li>
+  <li>
+    <h1><strong>Setup Database</strong><br></h1>
+    Make sure you are in the main folder user-management-app-kotlin-angular and check if you have install psql. It is required to run the following scripts.<br>
+    <h2>First create db</h2>
+    <pre><code>psql -U postgres -d postgres -c "CREATE DATABASE usermanagement;"</code></pre>
+    <h2>Then insert all the mock data</h2>
+    <pre><code>psql -U postgres -d usermanagement -f ./setup_database.sql</code></pre>
+  </li>
 </ul>
 
 <h2>2. Backend (Spring Boot API with Kotlin)</h2>
@@ -53,7 +61,6 @@ spring.datasource.password=your_password
 </ol>
 
 <h3>Running the API</h3>
-
 <ol>
   <li>
     To run the Spring Boot application go inside the server_api package inside kotlin and run the root App called "MarkovskiRestAppApplication"
@@ -66,6 +73,7 @@ spring.datasource.password=your_password
 
 <br>
 <h1>API Documentation</h1>
+<p>I have Springdoc implemented when you run the app you can see, test and explore the API in depth.</p>
 <table>
   <thead>
     <tr>
@@ -107,3 +115,51 @@ spring.datasource.password=your_password
     </tr>
   </tbody>
 </table>
+<hr>
+
+<h1>FrontEnd Angular Client to consume the API</h1><br>
+
+This is an Angular project using Angular version "16.1.6" . It includes Angular Material and TailwindCSS for styling. https://github.com/ERoydev/markovski_repo
+
+## Features
+- Modern UI built with Angular and styled using Tailwind CSS.
+- Integration with MockAPI for data management.
+- Responsive design for various screen sizes.
+
+
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v16.x.x or later is recommended)
+- npm (usually comes with Node.js)
+- Angular CLI 16.
+    ```bash
+    npm install -g @angular/cli@16.1.6
+    ```
+
+### Steps
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/ERoydev/markovski_repo.git
+    ```
+2. Navigate to the project directory:
+    ```bash
+    cd markovski_repo
+    ```
+3. Install the dependencies:
+    ```bash
+    npm install
+    ```
+
+## Usage
+
+### Running the Application
+To start the Angular application, run:
+```bash
+ng serve
+```
+### Home page
+<br />
+<br />
+
+
+![MarkovskiPicture](https://github.com/user-attachments/assets/553ee9a0-355d-4adb-999e-a01ffa7d1571)
