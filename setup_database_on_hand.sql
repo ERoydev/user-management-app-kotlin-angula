@@ -1,50 +1,15 @@
--- 1. Create the user (role)
-DO
-$$
-BEGIN
-   -- Check if the role (user) exists, and drop it if it does (optional)
-   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'your_username') THEN
-      PERFORM pg_terminate_backend(pg_stat_activity.pid)
-      FROM pg_stat_activity
-      WHERE pg_stat_activity.datname = 'usermanagement'
-      AND pid <> pg_backend_pid(); -- Terminate active connections
+CREATE DATABASE usermanagement;
 
-      DROP ROLE your_username;
-   END IF;
-
-   -- Create the role (user) with login privileges
-   CREATE ROLE your_username WITH LOGIN PASSWORD 'your_password';
-END
-$$;
-
--- 2. Create the database outside the DO block (CREATE DATABASE cannot run inside a DO block)
-CREATE DATABASE usermanagement OWNER your_username;
-
--- 3. Grant privileges to the new user (in case more privileges are needed later)
-GRANT ALL PRIVILEGES ON DATABASE usermanagement TO your_username;
-
--- 4. Connect to the newly created database
 \c usermanagement;
 
--- 5. Create the users table inside the newly created database
-DO
-$$
-BEGIN
-   IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'users') THEN
-      CREATE TABLE users (
-          id SERIAL PRIMARY KEY,
-          first_name VARCHAR(100) NOT NULL,
-          last_name VARCHAR(100) NOT NULL,
-          date_of_birth DATE NOT NULL,
-          phone_number VARCHAR(12) NOT NULL,
-          email VARCHAR(100) UNIQUE NOT NULL
-      );
-   END IF;
-END
-$$;
-
--- 6. Alter table ownership (this ensures the user becomes the owner of the table)
-ALTER TABLE users OWNER TO your_username;
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    phone_number VARCHAR(12) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL
+);
 
 insert into users (first_name, last_name, date_of_birth, phone_number, email) values ('Niels', 'MacGilpatrick', '1/29/2003', '502-144-1154', 'nmacgilpatrick0@usatoday.com');
 insert into users (first_name, last_name, date_of_birth, phone_number, email) values ('Griffy', 'Matijasevic', '1/14/2015', '128-276-6848', 'gmatijasevic1@gnu.org');
