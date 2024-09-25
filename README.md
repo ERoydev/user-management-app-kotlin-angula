@@ -23,6 +23,8 @@
   <li>
     <h1><strong>Setup Database</strong><br></h1>
     Make sure you are in the main folder user-management-app-kotlin-angular where setup_database.sql file is located and check if you have install psql. It is required to run the following script.<br>
+    <h3>0. Navigate into project folder</h3>
+    <pre><code>cd .\user-management-app-kotlin-angula\</code></pre>
     <h2>1. Run this script</h2>
     <pre><code>psql -U postgres -d postgres -f ./setup_database.sql</code></pre>
     <p>The application.properties is setuped with the user that this script will create, but in case of error go to the next approach!</p>
@@ -139,13 +141,9 @@ This is an Angular project using Angular version "16.1.6" . It includes Angular 
     ```
 
 ### Steps
-1. Clone the repository:
+1. Navigate to the project directory:
     ```bash
-    git clone https://github.com/ERoydev/markovski_repo.git
-    ```
-2. Navigate to the project directory:
-    ```bash
-    cd markovski_repo
+    cd .\frontend\
     ```
 3. Install the dependencies:
     ```bash
