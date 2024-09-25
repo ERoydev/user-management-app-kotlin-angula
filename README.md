@@ -127,7 +127,6 @@ This is an Angular project using Angular version "16.1.6" . It includes Angular 
 
 ## Features
 - Modern UI built with Angular and styled using Tailwind CSS.
-- Integration with MockAPI for data management.
 - Responsive design for various screen sizes.
 
 
